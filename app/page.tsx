@@ -161,40 +161,40 @@ export default function WebhookTester() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-6">
+    <div className="min-h-screen bg-black text-white p-4 md:p-6 lg:p-8">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="mb-10 border-b border-white pb-6">
+        <div className="mb-8 md:mb-10 border-b border-white pb-6">
           <div className="flex items-center gap-3 mb-3">
-            <Activity className="w-8 h-8" />
-            <h1 className="text-4xl font-bold tracking-tight">
+            <Activity className="w-6 h-6 md:w-8 md:h-8" />
+            <h1 className="text-2xl md:text-4xl font-bold tracking-tight">
               WEBHOOK TESTER
             </h1>
           </div>
-          <p className="text-gray-400 text-sm tracking-wide uppercase">
+          <p className="text-gray-400 text-[10px] md:text-sm tracking-wide uppercase">
             Test webhook endpoints · Monitor performance · Track history
           </p>
         </div>
 
         {/* Input Section */}
-        <div className="border-2 border-white p-6 mb-8">
+        <div className="border-2 border-white p-4 md:p-6 mb-8">
           <label className="block text-xs font-bold tracking-widest uppercase mb-3 text-gray-400">
             Target URL
           </label>
-          <div className="flex gap-3">
+          <div className="flex flex-col md:flex-row gap-3">
             <input
               type="text"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && testWebhook()}
               placeholder="https://webhook.site/your-unique-url"
-              className="flex-1 bg-black border-2 border-white px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-gray-400 font-mono text-sm transition-colors"
+              className="flex-1 bg-black border-2 border-white px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-gray-400 font-mono text-sm transition-colors w-full"
               disabled={isLoading}
             />
             <button
               onClick={testWebhook}
               disabled={isLoading}
-              className="bg-white hover:bg-gray-200 disabled:bg-gray-800 disabled:text-gray-600 disabled:cursor-not-allowed text-black px-8 py-3 font-bold tracking-wide uppercase text-sm flex items-center gap-3 transition-all border-2 border-white disabled:border-gray-800"
+              className="bg-white hover:bg-gray-200 disabled:bg-gray-800 disabled:text-gray-600 disabled:cursor-not-allowed text-black px-8 py-3 font-bold tracking-wide uppercase text-sm flex items-center justify-center gap-3 transition-all border-2 border-white disabled:border-gray-800 w-full md:w-auto"
             >
               {isLoading ? (
                 <>
@@ -212,21 +212,21 @@ export default function WebhookTester() {
           {error && (
             <div className="mt-3 border border-white p-3 flex items-start gap-2">
               <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
-              <p className="text-sm font-mono">{error}</p>
+              <p className="text-sm font-mono break-all">{error}</p>
             </div>
           )}
         </div>
 
         {/* Results Section */}
         <div className="border-2 border-white">
-          <div className="p-5 border-b-2 border-white flex justify-between items-center bg-white text-black">
-            <h2 className="text-lg font-bold tracking-widest uppercase">
+          <div className="p-4 md:p-5 border-b-2 border-white flex justify-between items-center bg-white text-black">
+            <h2 className="text-sm md:text-lg font-bold tracking-widest uppercase">
               Test History
             </h2>
             {tests.length > 0 && (
               <button
                 onClick={clearHistory}
-                className="hover:text-gray-600 flex items-center gap-2 text-xs font-bold tracking-wide uppercase transition-colors"
+                className="hover:text-gray-600 flex items-center gap-2 text-[10px] md:text-xs font-bold tracking-wide uppercase transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
                 CLEAR
@@ -235,40 +235,40 @@ export default function WebhookTester() {
           </div>
 
           {tests.length === 0 ? (
-            <div className="p-16 text-center">
-              <Send className="w-16 h-16 mx-auto mb-4 text-gray-800" />
-              <p className="text-gray-600 uppercase tracking-wide text-sm font-bold">
+            <div className="p-10 md:p-16 text-center">
+              <Send className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 text-gray-800" />
+              <p className="text-gray-600 uppercase tracking-wide text-xs md:text-sm font-bold">
                 No tests recorded
               </p>
-              <p className="text-gray-800 text-xs mt-2">
+              <p className="text-gray-800 text-[10px] md:text-xs mt-2">
                 Enter a URL above to begin testing
               </p>
             </div>
           ) : (
             <div className="divide-y-2 divide-white">
-              {tests.map((test, index) => (
+              {tests.map((test) => (
                 <div
                   key={test.id}
-                  className="p-5 hover:bg-gray-950 transition-colors"
+                  className="p-4 md:p-5 hover:bg-gray-950 transition-colors"
                 >
-                  <div className="flex items-start justify-between gap-4">
+                  <div className="flex flex-col gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-3">
                         <div className={getStatusColor(test.statusCode)}>
                           {getStatusIcon(test.statusCode, test.error)}
                         </div>
-                        <code className="text-sm text-white font-mono truncate">
+                        <code className="text-xs md:text-sm text-white font-mono truncate block">
                           {test.url}
                         </code>
                       </div>
 
-                      <div className="grid grid-cols-3 gap-4 text-xs">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 text-xs">
                         <div className="border border-white p-2">
                           <div className="text-gray-600 uppercase tracking-wider font-bold mb-1">
                             Status
                           </div>
                           <div
-                            className={`font-mono font-bold text-base ${getStatusColor(test.statusCode)}`}
+                            className={`font-mono font-bold text-sm md:text-base ${getStatusColor(test.statusCode)}`}
                           >
                             {test.error ? "ERROR" : test.statusCode || "N/A"}
                           </div>
@@ -280,7 +280,7 @@ export default function WebhookTester() {
                               <Clock className="w-3 h-3" />
                               Latency
                             </div>
-                            <div className="text-white font-mono font-bold text-base">
+                            <div className="text-white font-mono font-bold text-sm md:text-base">
                               {test.latency}ms
                             </div>
                           </div>
@@ -290,7 +290,7 @@ export default function WebhookTester() {
                           <div className="text-gray-600 uppercase tracking-wider font-bold mb-1">
                             Time
                           </div>
-                          <div className="text-white font-mono text-xs">
+                          <div className="text-white font-mono text-[10px] md:text-xs">
                             {new Date(test.timestamp).toLocaleTimeString()}
                           </div>
                         </div>
@@ -298,10 +298,12 @@ export default function WebhookTester() {
 
                       {test.error && (
                         <div className="mt-3 border border-white p-3 bg-white text-black">
-                          <div className="text-xs font-bold tracking-wider mb-1">
+                          <div className="text-[10px] font-bold tracking-wider mb-1">
                             ERROR MESSAGE
                           </div>
-                          <div className="text-sm font-mono">{test.error}</div>
+                          <div className="text-xs md:text-sm font-mono break-all">
+                            {test.error}
+                          </div>
                         </div>
                       )}
                     </div>
@@ -314,15 +316,17 @@ export default function WebhookTester() {
 
         {/* Footer Stats */}
         {tests.length > 0 && (
-          <div className="mt-6 grid grid-cols-3 gap-4 text-center">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
             <div className="border border-white p-4">
-              <div className="text-2xl font-bold font-mono">{tests.length}</div>
-              <div className="text-xs text-gray-600 uppercase tracking-wider mt-1">
+              <div className="text-xl md:text-2xl font-bold font-mono">
+                {tests.length}
+              </div>
+              <div className="text-[10px] md:text-xs text-gray-600 uppercase tracking-wider mt-1">
                 Total Tests
               </div>
             </div>
             <div className="border border-white p-4">
-              <div className="text-2xl font-bold font-mono">
+              <div className="text-xl md:text-2xl font-bold font-mono">
                 {
                   tests.filter(
                     (t) =>
@@ -330,12 +334,12 @@ export default function WebhookTester() {
                   ).length
                 }
               </div>
-              <div className="text-xs text-gray-600 uppercase tracking-wider mt-1">
+              <div className="text-[10px] md:text-xs text-gray-600 uppercase tracking-wider mt-1">
                 Successful
               </div>
             </div>
             <div className="border border-white p-4">
-              <div className="text-2xl font-bold font-mono">
+              <div className="text-xl md:text-2xl font-bold font-mono">
                 {tests.filter((t) => t.latency).length > 0
                   ? Math.round(
                       tests
@@ -346,7 +350,7 @@ export default function WebhookTester() {
                   : 0}
                 ms
               </div>
-              <div className="text-xs text-gray-600 uppercase tracking-wider mt-1">
+              <div className="text-[10px] md:text-xs text-gray-600 uppercase tracking-wider mt-1">
                 Avg Latency
               </div>
             </div>
