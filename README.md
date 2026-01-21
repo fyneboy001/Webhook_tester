@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+**Webhook Tester**
+This is a simple tool built for the Cencori technical challenge. It allows you to "ping" a URL to see if it's working, check how long the request takes, and see the status code returned.
 
-## Getting Started
+Live Demo: webhooktester-xi.vercel.app
 
-First, run the development server:
+**Features:**
+Tests Endpoints: Sends a POST request with a test JSON payload to any URL you provide.
 
-```bash
+Measures Latency: Shows exactly how many milliseconds the response took.
+
+Saves History: Your recent tests are saved in your browser so they don't disappear when you refresh.
+
+Safety First: I've added logic to prevent the app from calling internal IP addresses (SSRF protection) and to stop requests that take longer than 5 seconds.
+
+**Tech Stack**
+Framework: Next.js (App Router)
+
+Language: TypeScript
+
+Styling: Tailwind CSS
+
+**How to run it**
+Clone this repo.
+
+Install the packages:
+
+Bash
+npm install
+Start the development server:
+
+Bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Open http://localhost:3000 in your browser.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Implementation Details**
+Server-Side Execution: The actual "ping" happens on the server to avoid CORS issues and protect the user's client IP.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Timeout Handling: Used AbortController in the fetch request to ensure the serverless function doesn't hang indefinitely.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Input Validation: Built-in checks to ensure only valid URLs are processed, reducing unnecessary API calls.
 
-## Learn More
+Error Handling: If a site is down or the URL is wrong, the app shows a clear error message instead of crashing.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+UX: Includes loading states so the user knows the request is "in-flight."
