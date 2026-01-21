@@ -2,7 +2,7 @@
 
 This is a simple tool built for the Cencori technical challenge. It allows you to "ping" a URL to see if it's working, check how long the request takes, and see the status code returned.
 
-Live Demo: webhooktester-xi.vercel.app
+[View Webhook Tester](webhooktester-xi.vercel.app)
 
 **Features:**
 
